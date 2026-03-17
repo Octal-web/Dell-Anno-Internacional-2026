@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app {
+	@apply min-h-screen;
+}
+
+form .signup-select--is-disabled {
+	@apply opacity-60;
+}
+form .signup-select__control {
+    @apply px-0 rounded-none border-0 border-b border-opacity-100 bg-transparent p-1 font-normal text-black outline-none transition hover:ring-0 !shadow-none disabled:cursor-default;
+}
+form .signup-select__control--is-focused,
+form .signup-select__hidden__control--is-focused {
+    @apply !border-b-gray-300;
+}
+form .signup-select__control.signup-select__control--menu-is-open {
+    @apply !border-b-black;
+}
+form .signup-select__value-container {
+	@apply px-0;
+}
+form .signup-select__placeholder {
+    @apply text-gray-500 text-opacity-70;
+}
+form .signup-select__indicator-separator,
+form .signup-select__hidden__indicator-separator {
+    @apply hidden;
+}
+form .signup-select__menu {
+	@apply rounded-none;
+}
+form .signup-select__option {
+    @apply text-sm;
+}
+form .signup-select__indicator {
+    @apply text-black;
+}
+form .signup-select__input:focus {
+	@apply ring-0;
+}
+form .signup-select__option--is-focused {
+	@apply bg-neutral-500 bg-opacity-20;
+}
+form .signup-select__option--is-selected {
+	@apply bg-neutral-700 bg-opacity-90;
+}
+
+.company-logo {
+    background-image: url(/admin/img/logo-alt.png);
+}
+.menu-aside:hover .company-logo {
+    @apply w-[7em];
+    background-image: url(/admin/img/logo.png);
+}
+.menu-aside:not(:hover) .submenu {
+	@apply max-h-0;
+}
+
+form .admin-select__control {
+    @apply rounded-none !border-gray-300 border-opacity-100 bg-transparent p-1 font-normal text-sm text-black outline-none transition hover:ring-0 !shadow-none disabled:cursor-default;
+}
+form .admin-select__control--is-focused,
+form .admin-select__hidden__control--is-focused {
+    @apply !border-black focus:border-black;
+}
+form .admin-select__indicator-separator,
+form .admin-select__hidden__indicator-separator {
+    @apply hidden;
+}
+form .admin-select__option {
+    @apply text-sm;
+}
+form .admin-select__input:focus {
+    @apply ring-0;
+}

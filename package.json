@@ -1,0 +1,52 @@
+{
+    "$schema": "https://json.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "devDependencies": {
+        "@headlessui/react": "^2.0.0",
+        "@inertiajs/react": "^2.0.0",
+        "@tailwindcss/forms": "^0.5.3",
+        "@tailwindcss/vite": "^4.0.0",
+        "@vitejs/plugin-react": "^4.2.0",
+        "autoprefixer": "^10.4.12",
+        "axios": "^1.8.2",
+        "concurrently": "^9.0.1",
+        "laravel-vite-plugin": "^1.2.0",
+        "postcss": "^8.4.31",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "tailwindcss": "^3.2.1",
+        "vite": "^6.2.4"
+    },
+    "dependencies": {
+        "@fortawesome/free-solid-svg-icons": "^6.7.2",
+        "@fortawesome/react-fontawesome": "^0.2.2",
+        "@pentestpad/tiptap-extension-figure": "^1.0.11",
+        "@react-input/mask": "^2.0.4",
+        "@studio-freight/lenis": "^1.0.42",
+        "@tiptap/extension-image": "^2.11.7",
+        "@tiptap/extension-link": "^2.11.7",
+        "@tiptap/extension-list-item": "^2.11.7",
+        "@tiptap/extension-table": "^2.11.7",
+        "@tiptap/extension-table-cell": "^2.11.7",
+        "@tiptap/extension-table-header": "^2.11.7",
+        "@tiptap/extension-table-row": "^2.11.7",
+        "@tiptap/extension-text": "^2.11.7",
+        "@tiptap/extension-underline": "^2.11.7",
+        "@tiptap/react": "^2.11.7",
+        "@tiptap/starter-kit": "^2.11.7",
+        "browser-image-compression": "^2.0.2",
+        "gsap": "^3.12.7",
+        "react-dropzone": "^14.3.8",
+        "react-image-crop": "^11.0.7",
+        "react-select": "^5.10.1",
+        "react-sortablejs": "^6.1.4",
+        "react-tag-input": "^6.10.6",
+        "swiper": "^11.2.6",
+        "yet-another-react-lightbox": "^3.25.0"
+    }
+}
