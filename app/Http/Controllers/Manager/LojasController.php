@@ -16,6 +16,7 @@ use Inertia\Inertia;
 use App\Http\Requests\Manager\PostStoreRequest;
 
 use Carbon\Carbon;
+use App\Services\ImageCompressor;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
@@ -99,7 +100,7 @@ class LojasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function novo(PostStoreRequest $request) {
+    public function novo(PostStoreRequest $request, ImageCompressor $compressor) {
         if($request->ajax()){
             $idioma = inertia()->getShared('idioma');
             
@@ -147,15 +148,20 @@ class LojasController extends Controller
             $response = $loja_idioma->save();
 
             if ($response) {
-                $image = $request->file('img')->move(public_path('content/stores/b/'), $loja->imagem);
-                $image = $request->file('img_alt')->move(public_path('content/stores/s/'), $loja->imagem);
-                
-                if ($request->file('img_logo') && $request->file('img_logo')->getError() == 0) {
-                    $image = $request->file('img_logo')->move(public_path('content/stores/logo/'), $loja->logo);
-                }
+                $compressor->compressOrFallback($request->file('img')->getRealPath(), public_path('content/stores/b/' . $loja->imagem));
+                $compressor->compressOrFallback($request->file('img_alt')->getRealPath(), public_path('content/stores/s/' . $loja->imagem));
 
+
+                if ($request->file('img_logo') && $request->file('img_logo')->getError() == 0) {
+                    $compressor->compressOrFallback($request->file('img_logo')->getRealPath(), public_path('content/stores/logo/' . $loja->logo));
+                }
+                
                 if ($request->file('img_showroom') && $request->file('img_showroom')->getError() == 0) {
-                    $image = $request->file('img_showroom')->move(public_path('content/stores/showroom/'), $loja->imagem_showroom);
+                    $compressor->compressOrFallback($request->file('img_showroom')->getRealPath(), public_path('content/stores/showroom/' . $loja->imagem_showroom));
+                }
+                
+                if ($request->file('vid_showroom') && $request->file('vid_showroom')->getError() == 0) {
+                    $video = $request->file('vid_showroom')->move(public_path('content/stores/showroom/video/'), $loja->video_showroom);
                 }
 
                 return to_route('Manager.Lojas.index')->with('message', ['type' => 'success', 'msg' => 'Registro salvo com sucesso!']);
@@ -268,7 +274,7 @@ class LojasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function atualizar(PostStoreRequest $request, $id) {
+    public function atualizar(PostStoreRequest $request, $id, ImageCompressor $compressor) {
         if($request->ajax()){
             $loja = Loja::query()
                 ->where([
@@ -374,8 +380,8 @@ class LojasController extends Controller
                         File::delete('content/stores/s/' . $lojaOriginal->imagem);
                     }
 
-                    $image = $request->file('img')->move(public_path('content/stores/b/'), $loja->imagem);
-                    $image = $request->file('img_alt')->move(public_path('content/stores/s/'), $loja->imagem);
+                    $compressor->compressOrFallback($request->file('img')->getRealPath(), public_path('content/stores/b/' . $loja->imagem));
+                    $compressor->compressOrFallback($request->file('img_alt')->getRealPath(), public_path('content/stores/s/' . $loja->imagem));
                 }
 
                 if ($request->file('img_logo') && $request->file('img_logo')->getError() == 0) {
@@ -383,15 +389,23 @@ class LojasController extends Controller
                         File::delete('content/stores/logo/' . $lojaOriginal->logo);
                     }
                     
-                    $image = $request->file('img_logo')->move(public_path('content/stores/logo/'), $loja->logo);
+                    $compressor->compressOrFallback($request->file('img_logo')->getRealPath(), public_path('content/stores/logo/' . $loja->logo));
                 }
 
                 if ($request->file('img_showroom') && $request->file('img_showroom')->getError() == 0) {
-                    if ($loja->showroom && isset($lojaOriginal) && File::exists('content/stores/showroom/' . $lojaOriginal->showroom)) {
-                        File::delete('content/stores/showroom/' . $lojaOriginal->showroom);
+                    if ($loja->imagem_showroom && isset($lojaOriginal) && File::exists('content/stores/showroom/' . $lojaOriginal->imagem_showroom)) {
+                        File::delete('content/stores/showroom/' . $lojaOriginal->imagem_showroom);
                     }
                     
-                    $image = $request->file('img_showroom')->move(public_path('content/stores/showroom/'), $loja->showroom);
+                    $compressor->compressOrFallback($request->file('img_showroom')->getRealPath(), public_path('content/stores/showroom/' . $loja->imagem_showroom));
+                }
+                
+                if ($request->file('vid_showroom') && $request->file('vid_showroom')->getError() == 0) {
+                    if ($loja->video_showroom && isset($lojaOriginal) && File::exists('content/stores/showroom/video/' . $lojaOriginal->video_showroom)) {
+                        File::delete('content/stores/showroom/video/' . $lojaOriginal->video_showroom);
+                    }
+
+                    $video = $request->file('vid_showroom')->move(public_path('content/stores/showroom/video/'), $loja->video_showroom);
                 }
 
                 return to_route('Manager.Lojas.index')->with('message', ['type' => 'success', 'msg' => 'Registro salvo com sucesso!']);

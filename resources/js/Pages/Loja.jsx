@@ -9,12 +9,13 @@ import { StoreStreetView } from '@/Components/StoreStreetView';
 import { StoreBrandItems } from '@/Components/StoreBrandItems';
 import { StoreShowroomImage } from '@/Components/StoreShowroomImage';
 import { StoreFeatureds } from '@/Components/StoreFeatureds';
-import { StoreProjects } from '@/Components/StoreProjects';
+// import { StoreProjects } from '@/Components/StoreProjects';
 import { ProjectSteps } from '@/Components/ProjectSteps';
 import { ProductsForm } from '@/Components/ProductsForm';
+import { StoreProjectGrid } from '@/Components/StoreProjectGrid';
 
 const Page = () => {
-    const { loja, conteudos, imagensShowroom, imagensProjetos, fasesProjetos, chamadaForm } = usePage().props;
+    const { loja, conteudos, imagensShowroom, fasesProjetos, chamadaForm } = usePage().props;
     
     return (
         <DefaultLayout>
@@ -29,8 +30,10 @@ const Page = () => {
             <StoreShowroomImage image={loja.imagem_showroom} />
             
             {imagensShowroom.length && <StoreFeatureds images={imagensShowroom} /> }
+
+            {loja.projetos.length && <StoreProjectGrid projects={loja.projetos} /> }
             
-            {imagensProjetos.length && <StoreProjects images={imagensProjetos} /> }
+            {/* imagensProjetos.length && <StoreProjects images={imagensProjetos} /> */}
 
             <ProjectSteps content={conteudos[1]} steps={fasesProjetos} noExternal={false} />
 

@@ -25,11 +25,11 @@ class PostStoreProjectRequest extends FormRequest
             'nome' => 'required|string|max:120',
             'chamada' => 'required|string|max:320',
 
-            'dados' => 'required|string|max:120',
+            'dados' => 'nullable|string|max:120',
             'loja_id' => 'nullable|integer|exists:lojas,id',
 
             'descricao' => 'required|string|max:1020',
-            'conteudo' => 'required|string|max:1520',
+            'conteudo' => 'nullable|string|max:1520',
 
             'produtos' => 'required|string|max:320',
             'creditos' => 'required|string|max:320',
@@ -66,7 +66,7 @@ class PostStoreProjectRequest extends FormRequest
             'chamada.required' => 'Por favor, informe a chamada.',
             'chamada.max' => 'A chamada deve ter no máximo 320 caracteres.',
 
-            'dados.required' => 'Por favor, informe os dados.',
+            // 'dados.required' => 'Por favor, informe os dados.',
             'dados.max' => 'Os dados devem ter no máximo 120 caracteres.',
 
             'loja_id.exists' => 'A loja selecionada é inválida.',
@@ -74,7 +74,7 @@ class PostStoreProjectRequest extends FormRequest
             'descricao.required' => 'Por favor, informe a descrição.',
             'descricao.max' => 'A descrição deve ter no máximo 1020 caracteres.',
 
-            'conteudo.required' => 'Por favor, informe o conteúdo.',
+            // 'conteudo.required' => 'Por favor, informe o conteúdo.',
             'conteudo.max' => 'O conteúdo deve ter no máximo 1520 caracteres.',
 
             'produtos.required' => 'Por favor, informe os produtos.',

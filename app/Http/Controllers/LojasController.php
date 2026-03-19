@@ -113,21 +113,21 @@ class LojasController extends Controller
                     })
                     ->orderBy('idioma_id', 'DESC');
                 },
-                // 'imagens' => function ($q) use ($idioma) {
-                //     $q->where([
-                //         'excluido' => NULL,
-                //         'visivel' => true
-                //     ])
-                //     ->with('imagensLojasIdiomas', function ($query) use ($idioma) {
-                //         $query->whereHas('idiomas', function ($r) use ($idioma) {
-                //             $r->where('codigo', $idioma)
-                //             ->orWhere('padrao', true);
-                //         })
-                //         ->orderBy('idioma_id', 'DESC');
-                //     })
-                //     ->orderBy('ordem', 'ASC')
-                //     ->orderBy('id', 'DESC');
-                // }
+                'projetos' => function ($q) use ($idioma) {
+                    $q->where([
+                        'excluido' => NULL,
+                        'visivel' => true
+                    ])
+                    ->with('projetosLojasIdiomas', function ($query) use ($idioma) {
+                        $query->whereHas('idiomas', function ($r) use ($idioma) {
+                            $r->where('codigo', $idioma)
+                            ->orWhere('padrao', true);
+                        })
+                        ->orderBy('idioma_id', 'DESC');
+                    })
+                    ->orderBy('ordem', 'ASC')
+                    ->orderBy('id', 'DESC');
+                }
             ])
             ->first();
 
@@ -154,26 +154,6 @@ class LojasController extends Controller
                 ];
             });
 
-        $imagensProjetos = ImagemProjetoLoja::query()
-            ->where([
-                'excluido' => NULL,
-                'visivel' => true,
-                'destaque' => true
-            ])
-            ->whereHas('projeto.loja', function ($q) use ($slug) {
-                $q->where('slug', $slug);
-            })
-            ->orderBy('ordem', 'ASC')
-            ->orderBy('id', 'DESC')
-            ->get()   
-            ->map(function($img) {
-                return [
-                    'id' => $img->id,
-                    'imagem' => rafator('content/stores/projects/gallery/s/' . $img->imagem),
-                    'imagem_zoom' => rafator('content/stores/projects/gallery/b/' . $img->imagem),
-                ];
-            });
-
         $lojaData = [
             'id' => $loja->id,
             'nome' => $loja->lojasIdiomas->isNotEmpty() ? $loja->lojasIdiomas[0]->nome : null,
@@ -185,7 +165,15 @@ class LojasController extends Controller
             'link_showroom' => $loja->link_showroom,
             'imagem' => rafator('content/stores/b/' . $loja->imagem),
             'imagem_showroom' => rafator('content/stores/showroom/' . $loja->imagem_showroom),
-            'logo' => rafator('content/stores/logo/' . $loja->logo)
+            'logo' => rafator('content/stores/logo/' . $loja->logo),
+            'projetos' => $loja->projetos->map(function($projeto) {
+                return [
+                    'id' => $projeto->id,
+                    'slug' => $projeto->slug,
+                    'imagem' => rafator('content/stores/projects/thumbs/' . $projeto->imagem),
+                    'nome' => $projeto->projetosLojasIdiomas->isNotEmpty() ? $projeto->projetosLojasIdiomas[0]->nome : null,
+                ];
+            }),
         ];
         
         $todasLojas = Loja::query()
@@ -289,7 +277,6 @@ class LojasController extends Controller
             'todasLojas' => $todasLojas,
             'chamadaForm' => $chamadaForm,
             'imagensShowroom' => $imagensShowroom,
-            'imagensProjetos' => $imagensProjetos,
             'fasesProjetos' => $fasesProjetos
         ]);
     }

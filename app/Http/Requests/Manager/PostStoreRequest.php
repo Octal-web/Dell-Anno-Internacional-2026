@@ -34,10 +34,11 @@ class PostStoreRequest extends FormRequest
             'horario_atendimento' => 'required|string|max:150',
             'chamada' => 'required|string|max:350',
             'img_logo' => 'nullable|image|mimes:png,jpg|max:1024',
-            'img_showroom' => 'nullable|image|mimes:png,jpg|max:4096',
+            'img_showroom' => 'nullable|image|mimes:png,jpg|max:4096|prohibits:vid_showroom',
             'img' => inertia()->getShared('action') === 'novo'
                 ? 'required|image|mimes:png,jpg|max:4096'
                 : 'nullable|image|mimes:png,jpg|max:4096',
+            'vid_showroom' => 'nullable|mimetypes:video/mp4,video/x-msvideo,video/webm|max:51200|prohibits:img_showroom',
             'titulo_pagina' => 'required|string|max:100',
             'descricao_pagina' => 'required|string|max:300',
         ];
@@ -86,6 +87,12 @@ class PostStoreRequest extends FormRequest
             'img_showroom.image' => 'Por favor, envie uma imagem de showroom válida.',
             'img_showroom.mimes' => 'A imagem do showroom deve estar em formato JPG ou PNG.',
             'img_showroom.max' => 'A imagem do showroom deve ter no máximo 4MB.',
+            'img_showroom.prohibits' => 'A imagem e o vídeo do showroom não podem ser enviados juntos.',
+            
+            'vid_showroom.required' => 'Por favor, selecione um vídeo de showroom.',
+            'vid_showroom.mimetypes' => 'Os formatos de vídeo válidos são: MP4, AVI e WEBM.',
+            'vid_showroom.max' => 'Por favor, envie um arquivo menor que 50MB.',
+            'vid_showroom.prohibits' => 'O vídeo e a imagem do showroom não podem ser enviados juntos.',
 
             'img.required' => 'Por favor, selecione uma imagem.',
             'img.image' => 'Por favor, selecione uma imagem válida.',

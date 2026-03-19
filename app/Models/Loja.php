@@ -35,6 +35,10 @@ class Loja extends Model {
     {
         return $this->belongsTo(Pais::class);
     }
+
+    public function projetos() {
+        return $this->hasMany(ProjetoLoja::class);
+    }
     
     public function estados()
     {

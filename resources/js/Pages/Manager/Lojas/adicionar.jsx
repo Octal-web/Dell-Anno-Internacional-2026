@@ -23,7 +23,7 @@ const Page = () => {
         [{ titulo: 'E-mails loja', name: 'emails_lojas', tamanho: 'col-span-12 lg:col-span-8', tipo: 'tag', max: 120 }],
         [{ titulo: 'Endereço', name: 'endereco', tamanho: 'col-span-12 md:col-span-6 lg:col-span-4', tipo: 'texto_longo', editor: false, max: 150 }, { titulo: 'Contato', name: 'contato', tamanho: 'col-span-12 md:col-span-6 lg:col-span-4', tipo: 'texto_longo', editor: false, max: 150 }],
         [{ titulo: 'Horário de Atendimento', name: 'horario_atendimento', tamanho: 'col-span-12 md:col-span-6 lg:col-span-4', tipo: 'texto_longo', editor: false, max: 150 }, { titulo: 'Texto chamada', name: 'chamada', tamanho: 'col-span-12 md:col-span-6 lg:col-span-4', tipo: 'texto_longo', editor: false, max: 250 }],
-        [{ titulo: 'Logo', name: 'img_logo', tamanho: 'col-span-12 md:col-span-4', tipo: 'imagem', crop: false, largura: 250, altura: 150 }, { titulo: 'Imagem Showroom', name: 'img_showroom', tamanho: 'col-span-12 md:col-span-6', tipo: 'imagem', crop: true, largura: 1920, altura: 1310 }],
+        [{ titulo: 'Logo', name: 'img_logo', tamanho: 'col-span-12 md:col-span-6 lg:col-span-4', tipo: 'imagem', crop: false, largura: 250, altura: 150 }, { titulo: 'Imagem Showroom', name: 'img_showroom', tamanho: 'col-span-12 md:col-span-6', tipo: 'imagem', crop: true, largura: 1920, altura: 1310 }],
         [{ titulo: 'Imagem', name: 'img', tamanho: 'col-span-12 md:col-span-6', tipo: 'imagem', crop: true, largura: 1920, altura: 760 }],
         [{ titulo: 'Título da Página', name: 'titulo_pagina', tamanho: 'col-span-12 lg:col-span-8', tipo: 'texto', max: 100 }],
         [{ titulo: 'Descrição da Página', name: 'descricao_pagina', tamanho: 'col-span-12 lg:col-span-8', editor: false, tipo: 'texto_longo', max: 300 }],

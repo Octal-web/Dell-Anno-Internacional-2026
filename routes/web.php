@@ -247,6 +247,7 @@ Route::prefix('/manager')->group(function() {
         Route::post('/lojas/adicionar', [ManagerLojasController::class, 'novo'])->name('Manager.Lojas.novo');
         Route::get('/lojas/editar/{id}', [ManagerLojasController::class, 'editar'])->name('Manager.Lojas.editar');
         Route::post('/lojas/editar/{id}', [ManagerLojasController::class, 'atualizar'])->name('Manager.Lojas.atualizar');
+        Route::get('/lojas/baixar-video/{id}', [ManagerLojasController::class, 'baixarVideo'])->name('Manager.Lojas.baixarVideo');
 
         Route::post('/lojas/cities/carregar', [ManagerCidadesController::class, 'carregar'])->name('Manager.Cidades.carregar');
 
