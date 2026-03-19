@@ -101,7 +101,7 @@ class HomeController extends Controller
                 return [
                     'id' => $destaque->id,
                     'tamanho' => $destaque->tamanho,
-                    'imagem' => $sdestaque->imagem ? asset('content/highlights/thumbs/' . $destaque->imagem) : null,
+                    'imagem' => $destaque->imagem ? asset('content/highlights/thumbs/' . $destaque->imagem) : null,
                     'video' => $destaque->tipo == 'video' ? asset('content/highlights/video/' . $destaque->video) : null,
                     'titulo' => $destaque->destaquesIdiomas->isNotEmpty() ? $destaque->destaquesIdiomas[0]->titulo : null,
                     'texto' => $destaque->destaquesIdiomas->isNotEmpty() ? $destaque->destaquesIdiomas[0]->texto : null,
