@@ -50,7 +50,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -B gh-pages
+          
+          rsync -a --exclude='.git' . /tmp/repo/
+          
+          git fetch origin gh-pages || true
+          git checkout -B gh-pages origin/gh-pages || git checkout --orphan gh-pages
+          
+          rsync -a /tmp/repo/. .
+          
+          git add -A
           git add -f public/build
           git commit -m "chore: deploy build [skip ci]" || echo "Nothing to commit"
-          git push origin gh-pages --force
+          git push origin gh-pages
